@@ -176,6 +176,21 @@ Spring Data REST joue le rôle de contrôleur REST automatique.
 
 ---
 
+## 2️⃣0️⃣ Configuration du Spring Cloud Config Server
+
+**(20) Création du config-service, configuration du port 9999 et initialisation du repo Git config-repo contenant les fichiers de configuration utilisés par les microservices.**
+
+![20 - ConfigService](screenshots/config-repo-git-commit-1.PNG)
+
+---
+
+## 2️⃣1️⃣ Config Server – Activation avec @EnableConfigServer
+
+**(21) Activation du serveur de configuration Spring Cloud grâce à l’annotation @EnableConfigServer dans la classe ConfigServiceApplication, après l’initialisation du dépôt Git contenant les fichiers de configuration.**
+
+![21 - ConfigService](screenshots/ACTIVER-SERVICE-CONFIGURATION-2.PNG)
+
+
 ## 🚀 Lancement du projet
 
 1. Démarrer **Eureka Discovery Service**

@@ -1,13 +1,16 @@
 package net.othmanetanji.customerservice;
 
+import net.othmanetanji.customerservice.config.CustomerConfigParams;
 import net.othmanetanji.customerservice.entities.Customer;
 import net.othmanetanji.customerservice.repository.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@EnableConfigurationProperties(CustomerConfigParams.class)
 public class CustomerServiceApplication {
 
 	public static void main(String[] args) {
