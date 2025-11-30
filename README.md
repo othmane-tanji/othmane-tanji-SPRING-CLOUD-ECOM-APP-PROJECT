@@ -190,6 +190,120 @@ Spring Data REST joue le rôle de contrôleur REST automatique.
 
 ![21 - ConfigService](screenshots/ACTIVER-SERVICE-CONFIGURATION-2.PNG)
 
+---
+
+## 2️⃣2️⃣ Définition du chemin Git pour le Config Server
+
+**(22) Configuration du spring.cloud.config.server.git.uri avec le chemin complet du dossier config-repo, récupéré via la commande pwd, afin que le Config Server puisse charger les fichiers de configuration.**
+
+![22 - Eureka Dashboard](screenshots/CONFIG-pATH-3.PNG)
+
+---
+
+## 2️⃣3️⃣ Test du Config Server – Chargement de la configuration d’un microservice
+
+**(23) Vérification du fonctionnement du Config Server via l’URL http://localhost:9999/customer-service/default, montrant le JSON généré contenant les propriétés chargées depuis le repo Git (customer-service.properties et application.properties).**
+
+![23 - Eureka Dashboard](screenshots/TEST-CONFIG-SERVICE-4.PNG)
+
+---
+
+## 2️⃣4️⃣ Injection des paramètres du Config Server dans un microservice
+
+**(24) Test de l’injection des propriétés distantes (global.params.p1, global.params.p2) depuis le Config Server dans le microservice customer-service, avec exposition via l’endpoint /testConfig1. Le JSON retourné ({"p1":"456","p2":"234"}) confirme que la configuration est correctement chargée.**
+
+![24 - Eureka Dashboard](screenshots/CUSTOMERSERVICE-A-CONTACTER-CONFIGSERVICE-5.PNG)
+
+---
+
+## 2️⃣5️⃣ Modification des paramètres globaux (sans rafraîchissement automatique)
+
+**(25) Mise à jour des valeurs global.params.p1 et global.params.p2 dans application.properties du config-repo (777 et 8989).**
+**Cependant, le microservice customer-service affiche toujours les anciennes valeurs (456, 234) car aucun mécanisme de rafraîchissement** **(/actuator/refresh, Spring Cloud Bus, ou redémarrage manuel) n’a encore été déclenché.**
+
+![25 - Eureka Dashboard](screenshots/ON-A-CHANGE-LES-PARAM-MAIS-PAS-DE-CHANGEMENT-DANS-WEB-6.PNG)
+
+---
+
+## 2️⃣6️⃣ Rafraîchissement manuel de la configuration avec /actuator/refresh
+
+**(26) Envoi d’une requête POST vers http://localhost:8081/actuator/refresh afin de recharger dynamiquement les nouvelles valeurs du config-repo sans redémarrer le microservice. La réponse 200 OK confirme que les propriétés ont été actualisées côté client.**
+
+![26 - Eureka Dashboard](screenshots/REQUETE-POST-7.PNG)
+
+---
+
+## 2️⃣7️⃣ Vérification des microservices enregistrés dans Eureka
+
+(27) Consultation du tableau de bord Eureka (http://localhost:8761) pour vérifier que tous les microservices sont correctement enregistrés :
+
+BILLING-SERVICE
+
+CONFIG-SERVICE
+
+CUSTOMER-SERVICE
+
+GATEWAY-SERVICE
+
+INVENTORY-SERVICE
+
+Tous apparaissent avec le statut UP et leurs URLs respectives, confirmant une intégration réussie avec le Discovery Server.
+
+![27 - Eureka Dashboard](screenshots/eureka-check-services-8.PNG)
+
+
+---
+
+## 2️⃣8️⃣ Vérification du routage via le Gateway
+
+**(28) Appel de l’endpoint /testConfig1 du microservice customer-service en passant par l’API Gateway (http://localhost:8888/CUSTOMER-SERVICE/testConfig1).
+Les valeurs retournées ({"p1":"1111","p2":"2222"}) confirment que :
+
+le routage dynamique lb://CUSTOMER-SERVICE fonctionne,
+
+la configuration a bien été rafraîchie après le /actuator/refresh,
+
+la communication Gateway → Eureka → Customer-Service est correcte. **
+
+![28 - Eureka Dashboard](screenshots/ON-PASSE-par-gateway-et-on-verifie-9.PNG)
+
+
+
+2️⃣9️⃣ Appel d’un microservice complet via le Gateway – Facture détaillée
+
+(30) Test du routage complet via Gateway avec l’endpoint :
+http://localhost:8888/BILLING-SERVICE/bills/1
+
+La réponse JSON retournée contient :
+
+les informations de la facture (billingDate, customerId, …)
+
+les productItems enrichis automatiquement par le Inventory Service,
+
+les informations du Customer Service récupérées via communication inter-services,
+
+le tout accessible via Gateway grâce au routage dynamique Eureka + Gateway.
+
+![29 - Eureka Dashboard](screenshots/TOUT-FONCTIONE-FINAL.PNG)
+
+
+3️⃣0️⃣ Architecture globale — Communication entre Config Server, Eureka, Gateway et microservices
+
+(29) Schéma d’ensemble montrant l’architecture microservices complète :
+
+(1) Les microservices (Customer, Billing, Inventory) se registrent automatiquement auprès du Eureka Discovery Server.
+
+(2) Le Config Service fournit les configurations centralisées à tous les microservices.
+
+(3) Le Spring Cloud Gateway récupère la liste des instances via Eureka et redirrige les clients vers les bons services grâce au routage dynamique.
+
+**(4) Eureka agit comme un registre des services disponibles.
+
+**(5) Les microservices communiquent entre eux via Eureka, sans connaître leurs adresses réelles.
+
+![30 - Eureka Dashboard](screenshots/architecture-finale-02.PNG)
+
+
 
 ## 🚀 Lancement du projet
 
