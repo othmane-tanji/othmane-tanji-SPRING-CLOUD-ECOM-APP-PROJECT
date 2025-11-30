@@ -180,7 +180,7 @@ Spring Data REST joue le rôle de contrôleur REST automatique.
 
 **(20) Création du config-service, configuration du port 9999 et initialisation du repo Git config-repo contenant les fichiers de configuration utilisés par les microservices.**
 
-![20 - ConfigService](screenshots/config-repo-git-commit-1.PNG)
+![20 - ConfigService](screenshots/config-repo-git-commit-1.png)
 
 ---
 
@@ -188,7 +188,7 @@ Spring Data REST joue le rôle de contrôleur REST automatique.
 
 **(21) Activation du serveur de configuration Spring Cloud grâce à l’annotation @EnableConfigServer dans la classe ConfigServiceApplication, après l’initialisation du dépôt Git contenant les fichiers de configuration.**
 
-![21 - ConfigService](screenshots/ACTIVER-SERVICE-CONFIGURATION-2.PNG)
+![21 - ConfigService](screenshots/ACTIVER-SERVICE-CONFIGURATION-2.png)
 
 ---
 
@@ -196,7 +196,7 @@ Spring Data REST joue le rôle de contrôleur REST automatique.
 
 **(22) Configuration du spring.cloud.config.server.git.uri avec le chemin complet du dossier config-repo, récupéré via la commande pwd, afin que le Config Server puisse charger les fichiers de configuration.**
 
-![22 - Eureka Dashboard](screenshots/CONFIG-pATH-3.PNG)
+![22 - Eureka Dashboard](screenshots/CONFIG-pATH-3.png)
 
 ---
 
@@ -204,7 +204,7 @@ Spring Data REST joue le rôle de contrôleur REST automatique.
 
 **(23) Vérification du fonctionnement du Config Server via l’URL http://localhost:9999/customer-service/default, montrant le JSON généré contenant les propriétés chargées depuis le repo Git (customer-service.properties et application.properties).**
 
-![23 - Eureka Dashboard](screenshots/TEST-CONFIG-SERVICE-4.PNG)
+![23 - Eureka Dashboard](screenshots/TEST-CONFIG-SERVICE-4.png)
 
 ---
 
@@ -212,7 +212,7 @@ Spring Data REST joue le rôle de contrôleur REST automatique.
 
 **(24) Test de l’injection des propriétés distantes (global.params.p1, global.params.p2) depuis le Config Server dans le microservice customer-service, avec exposition via l’endpoint /testConfig1. Le JSON retourné ({"p1":"456","p2":"234"}) confirme que la configuration est correctement chargée.**
 
-![24 - Eureka Dashboard](screenshots/CUSTOMERSERVICE-A-CONTACTER-CONFIGSERVICE-5.PNG)
+![24 - Eureka Dashboard](screenshots/CUSTOMERSERVICE-A-CONTACTER-CONFIGSERVICE-5.png)
 
 ---
 
@@ -221,7 +221,7 @@ Spring Data REST joue le rôle de contrôleur REST automatique.
 **(25) Mise à jour des valeurs global.params.p1 et global.params.p2 dans application.properties du config-repo (777 et 8989).**
 **Cependant, le microservice customer-service affiche toujours les anciennes valeurs (456, 234) car aucun mécanisme de rafraîchissement** **(/actuator/refresh, Spring Cloud Bus, ou redémarrage manuel) n’a encore été déclenché.**
 
-![25 - Eureka Dashboard](screenshots/ON-A-CHANGE-LES-PARAM-MAIS-PAS-DE-CHANGEMENT-DANS-WEB-6.PNG)
+![25 - Eureka Dashboard](screenshots/ON-A-CHANGE-LES-PARAM-MAIS-PAS-DE-CHANGEMENT-DANS-WEB-6.png)
 
 ---
 
@@ -229,7 +229,7 @@ Spring Data REST joue le rôle de contrôleur REST automatique.
 
 **(26) Envoi d’une requête POST vers http://localhost:8081/actuator/refresh afin de recharger dynamiquement les nouvelles valeurs du config-repo sans redémarrer le microservice. La réponse 200 OK confirme que les propriétés ont été actualisées côté client.**
 
-![26 - Eureka Dashboard](screenshots/REQUETE-POST-7.PNG)
+![26 - Eureka Dashboard](screenshots/REQUETE-POST-7.png)
 
 ---
 
@@ -249,7 +249,7 @@ INVENTORY-SERVICE
 
 Tous apparaissent avec le statut UP et leurs URLs respectives, confirmant une intégration réussie avec le Discovery Server.
 
-![27 - Eureka Dashboard](screenshots/eureka-check-services-8.PNG)
+![27 - Eureka Dashboard](screenshots/eureka-check-services-8.png)
 
 
 ---
@@ -265,7 +265,7 @@ la configuration a bien été rafraîchie après le /actuator/refresh,
 
 la communication Gateway → Eureka → Customer-Service est correcte. **
 
-![28 - Eureka Dashboard](screenshots/ON-PASSE-par-gateway-et-on-verifie-9.PNG)
+![28 - Eureka Dashboard](screenshots/ON-PASSE-par-gateway-et-on-verifie-9.png)
 
 
 
@@ -284,7 +284,7 @@ les informations du Customer Service récupérées via communication inter-servi
 
 le tout accessible via Gateway grâce au routage dynamique Eureka + Gateway.
 
-![29 - Eureka Dashboard](screenshots/TOUT-FONCTIONE-FINAL.PNG)
+![29 - Eureka Dashboard](screenshots/TOUT-FONCTIONE-FINAL.png)
 
 
 3️⃣0️⃣ Architecture globale — Communication entre Config Server, Eureka, Gateway et microservices
@@ -301,7 +301,7 @@ le tout accessible via Gateway grâce au routage dynamique Eureka + Gateway.
 
 **(5) Les microservices communiquent entre eux via Eureka, sans connaître leurs adresses réelles.
 
-![30 - Eureka Dashboard](screenshots/architecture-finale-02.PNG)
+![30 - Eureka Dashboard](screenshots/architecture-finale-02.png)
 
 
 
