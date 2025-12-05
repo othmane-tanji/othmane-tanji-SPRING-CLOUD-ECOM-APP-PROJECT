@@ -315,7 +315,7 @@ la communication Angular → Gateway → Eureka → Inventory Service,
 
 le mapping du tableau Angular avec les données réelles du microservice.
 
-![31 - ANGULAR INVENTORY](screenshots/1.png)
+![31 - ANGULAR INVENTORY](screenshots/1.PNG)
 
 
 ## 3️⃣2️⃣ Frontend Angular – Affichage des clients via le Customer Service
@@ -331,7 +331,7 @@ le frontend récupère et mappe les données du backend sans erreur,
 
 CORS et HTTPClient Angular sont correctement configurés.
 
-![32 - ANGULAR INVENTORY](screenshots/2.png)
+![32 - ANGULAR INVENTORY](screenshots/2.PNG)
 
 
 ## 🚀 Lancement du projet
